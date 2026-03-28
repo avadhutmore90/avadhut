@@ -4,53 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Portfolio</title>
+
 <style>
     body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
         color: #333;
-    }
 
-    /* Header animations */
-    @keyframes fadeInTop {
-        0% { opacity: 0; transform: translateY(-50px); }
-        100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInDelay {
-        0% { opacity: 0; transform: translateY(20px); }
-        100% { opacity: 1; transform: translateY(0); }
+        /* NEW BACKGROUND */
+        background: linear-gradient(135deg, #74ebd5, #ACB6E5);
     }
 
     header {
-        background-color: #4CAF50;
+        background-color: rgba(0,0,0,0.7);
         color: white;
         padding: 40px 0;
         text-align: center;
     }
+
     header h1 {
         margin: 0;
         font-size: 3em;
-        animation: fadeInTop 1s ease forwards;
-    }
-    header p {
-        font-size: 1.5em;
-        margin-top: 10px;
-        animation: fadeInDelay 2s ease forwards;
     }
 
     nav {
         display: flex;
         justify-content: center;
-        background-color: #333;
+        background-color: #222;
     }
+
     nav a {
         color: white;
         padding: 14px 20px;
         text-decoration: none;
-        transition: 0.3s;
         cursor: pointer;
     }
+
     nav a:hover, nav a.active {
         background-color: #ddd;
         color: black;
@@ -59,137 +49,145 @@
     section {
         padding: 40px 20px;
         max-width: 1000px;
-        margin: auto;
-        display: none; /* hide all sections initially */
+        margin: 30px auto;
+        display: none;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.9);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    #about { display: block; }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Cards */
+    .card {
+        background: white;
+        padding: 20px;
+        margin: 10px 0;
         border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     }
 
-    /* About section with line-by-line typing animation */
-    #about {
-        display: block; /* show by default */
-        background-color: #d0f0c0; /* light green */
-        padding: 50px;
-    }
-
-    .typing-line {
-        display: inline-block;
-        white-space: nowrap;
-        overflow: hidden;
-        border-right: 3px solid #333;
-        font-family: monospace;
-        font-size: 1.2em;
-        opacity: 0;
-        animation: typingLine 2s steps(50, end) forwards, blink 0.75s step-end infinite;
-    }
-
-    .typing-line:nth-child(1) { animation-delay: 0s; }
-    .typing-line:nth-child(2) { animation-delay: 2s; }
-    .typing-line:nth-child(3) { animation-delay: 4s; }
-    .typing-line:nth-child(4) { animation-delay: 6s; }
-
-    @keyframes typingLine {
-        0% { width: 0; opacity: 1; }
-        100% { width: 100%; opacity: 1; }
-    }
-
-    @keyframes blink {
-        50% { border-color: transparent; }
-    }
-
-    /* Projects and Contact fade-in animation */
-    .fade-in {
-        opacity: 0;
-        transform: translateX(-50px);
-        animation: fadeInContent 1s forwards;
-    }
-    @keyframes fadeInContent {
-        to { opacity: 1; transform: translateX(0); }
-    }
-
-    /* Projects section */
-    #projects {
-        background-color: #c0d6f0; /* light blue */
-        padding: 50px;
-    }
+    /* Projects */
     .projects {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
     }
+
     .project-card {
-        background-color: white;
-        border-radius: 8px;
+        background: white;
         padding: 20px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .project-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        transition: 0.3s;
     }
 
-    /* Contact section */
-    #contact {
-        background-color: #f0d6c0; /* light orange */
-        padding: 50px;
+    .project-card:hover {
+        transform: scale(1.05);
     }
 
     footer {
         text-align: center;
-        padding: 20px;
-        background-color: #333;
+        padding: 15px;
+        background: #222;
         color: white;
     }
 </style>
 </head>
+
 <body>
 
 <header>
     <h1>My Portfolio</h1>
-    <p>Welcome to my portfolio</p> 
+    <p>Welcome to my personal website</p>
 </header>
 
 <nav>
-    <a href="index.html">Home</a>
     <a data-section="about" class="active">About Me</a>
+    <a data-section="academic">Academic Profile</a>
     <a data-section="projects">Projects</a>
     <a data-section="contact">Contact</a>
 </nav>
 
-<!-- About Me with line-by-line typing -->
+<!-- About Section -->
 <section id="about">
     <h2>About Me</h2>
-    <p>
-        <span class="typing-line">Hello! My name is Avadhut Vishal More.</span><br>
-        <span class="typing-line">I am passionate about web development and design.</span><br>
-        <span class="typing-line">I enjoy working with HTML, CSS, and JavaScript.</span><br>
-        <span class="typing-line">I create modern websites and projects with interactive animations.</span>
-    </p>
+
+    <div class="card">
+        <p><b>Name:</b> Avadhut Vishal More</p>
+        <p><b>Passion:</b> Web Development & Design</p>
+        <p><b>Skills:</b> HTML, CSS, JavaScript</p>
+        <p><b>Goal:</b> To build modern and interactive websites</p>
+    </div>
+
+    <div class="card">
+        <p>
+            I am a passionate web developer who enjoys creating clean,
+            modern, and user-friendly websites. I love learning new
+            technologies and improving my skills every day.
+        </p>
+    </div>
 </section>
 
-<!-- Projects section -->
+<!-- Academic Profile -->
+<section id="academic">
+    <h2>Academic Profile</h2>
+
+    <div class="card">
+        <h3>Education</h3>
+        <p><b>SSC:</b>75%</p>
+        <p><b>College:</b>Vidhyamandir Highschool & Jr.College Kole</p>
+        <p><b>Year:</b> 2023 - 2026</p>
+    </div>
+
+    <div class="card">
+        <h3>Skills Learned</h3>
+        <ul>
+            <li>Web Development</li>
+            <li>Programming in JavaScript</li>
+            <li>Database Basics</li>
+            <li>Software Development</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Achievements</h3>
+        <p>- Completed Web Development Projects</p>
+        <p>- Participated in Coding Competitions</p>
+    </div>
+</section>
+
+<!-- Projects -->
 <section id="projects">
-    <h2 class="fade-in">Projects</h2>
-    <div class="projects fade-in">
+    <h2>Projects</h2>
+
+    <div class="projects">
         <div class="project-card">
-            <h3>Project 1</h3>
-            <p>This is a personal website project showcasing my information and portfolio.</p>
+            <h3>Portfolio Website</h3>
+            <p>Personal website to showcase my profile.</p>
         </div>
+
         <div class="project-card">
-            <h3>Project 2</h3>
-            <p>This is a weather app that uses real-time weather data from an API.</p>
+            <h3>Weather App</h3>
+            <p>Displays real-time weather using API.</p>
         </div>
+
         <div class="project-card">
-            <h3>Project 3</h3>
-            <p>This is an e-commerce landing page project featuring product showcase.</p>
+            <h3>E-commerce Page</h3>
+            <p>Landing page with product showcase.</p>
         </div>
     </div>
 </section>
 
-<!-- Contact section -->
+<!-- Contact -->
 <section id="contact">
-    <h2 class="fade-in">Contact</h2>
-    <div class="fade-in">
+    <h2>Contact</h2>
+
+    <div class="card">
         <p>Email: avadhutmore90@gmail.com</p>
         <p>Phone: +91 8010679552</p>
     </div>
@@ -205,34 +203,13 @@
 
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            // remove active class from all links
             navLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
 
-            // hide all sections
             sections.forEach(section => section.style.display = 'none');
 
-            // show the clicked section
             const sectionToShow = document.getElementById(link.getAttribute('data-section'));
             sectionToShow.style.display = 'block';
-
-            // trigger fade-in animation for Projects/Contact
-            const fadeElems = sectionToShow.querySelectorAll('.fade-in');
-            fadeElems.forEach(elem => {
-                elem.style.opacity = 0; // reset
-                elem.offsetHeight; // trigger reflow
-                elem.style.animation = 'fadeInContent 1s forwards';
-            });
-
-            // restart typing animation for About Me
-            if(link.getAttribute('data-section') === 'about') {
-                const lines = sectionToShow.querySelectorAll('.typing-line');
-                lines.forEach(line => {
-                    line.style.animation = 'none';
-                    void line.offsetWidth; // trigger reflow
-                    line.style.animation = `typingLine 2s steps(50, end) forwards, blink 0.75s step-end infinite`;
-                });
-            }
         });
     });
 </script>
