@@ -1,241 +1,524 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avadhut More | Futuristic Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        color: #333;
+        :root {
+            --primary-glow: linear-gradient(135deg, #00ddeb 0%, #0078d4 50%, #00d4ff 100%);
+            --secondary-glow: linear-gradient(135deg, #ff6b6b 0%, #ffa726 50%, #ffcc02 100%);
+            --dark-bg: #0a0a0f;
+            --card-bg: rgba(255,255,255,0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b3b8;
+            --accent: #00ddeb;
+        }
 
-        /* NEW BACKGROUND */
-     /* Set image URL */
-    background-image: url('images.jfif');
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
 
-    /* Ensure image covers the entire screen */
-    background-size: cover;
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 80%, rgba(120,119,198,0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,119,198,0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(120,219,255,0.3) 0%, transparent 50%);
+            animation: bgShift 20s ease-in-out infinite;
+        }
 
-    /* Prevent image from repeating */
-    background-repeat: no-repeat;
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
 
-    /* Center the image */
-    background-position: center;
+        .particle {
+            position: absolute;
+            background: var(--primary-glow);
+            border-radius: 50%;
+            animation: float 25s infinite linear;
+        }
 
-    /* Keep the background fixed during scroll */
-    background-attachment: fixed;
+        @keyframes bgShift {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+        }
 
-    /* Fix height to viewport */
-    height: 100vh;
-    margin: 0;
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
 
-    }
+        /* Header */
+        header {
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(180deg, rgba(10,10,15,0.9) 0%, transparent 100%);
+            backdrop-filter: blur(20px);
+        }
 
-    header {
-        background-color:
-        color: white;
-        padding: 40px 0;
-        text-align: center;
-    }
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            background: var(--primary-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(0,221,235,0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
 
-    header h1 {
-        margin: 0;
-        font-size: 3em;
-    }
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px #00ddeb); }
+            to { filter: drop-shadow(0 0 30px #00ddeb); }
+        }
 
-    nav {
-        display: flex;
-        justify-content: center;
- background-color:#222;    }
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-    nav a {
-        color: white;
-        padding: 14px 20px;
-        text-decoration: none;
-        cursor: pointer;
-    }
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px 0;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
 
-    nav a:hover, nav a.active {
-        background-color: #ddd;
-        color: black;
-    }
+        nav a {
+            color: var(--text-primary);
+            padding: 16px 32px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-radius: 50px;
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
-    section {
-        padding: 40px 20px;
-        max-width: 1000px;
-        margin: 30px auto;
-        display: none;
-        border-radius: 12px;
-        background: rgba(255,255,255,0.9);
-        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    }
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-glow);
+            border-radius: 50px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
 
-    #about { display: block; }
+        nav a:hover::before,
+        nav a.active::before {
+            opacity: 0.2;
+        }
 
-    h2 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        nav a:hover,
+        nav a.active {
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,221,235,0.3);
+        }
 
-    /* Cards */
-    .card {
-        background: white;
-        padding: 20px;
-        margin: 10px 0;
-        border-radius: 10px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
+        /* Sections */
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: none;
+            min-height: 100vh;
+        }
 
-    /* Projects */
-    .projects {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-    }
+        #about { display: block; }
 
-    .project-card {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        transition: 0.3s;
-    }
+        h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            background: var(--primary-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
 
-    .project-card:hover {
-        transform: scale(1.05);
-    }
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-glow);
+            border-radius: 2px;
+        }
 
-    footer {
-        text-align: center;
-        padding: 15px;
-        background: #222;
-        color: white;
-    }
-</style>
+        /* Glass Cards */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
+            margin: 20px 0;
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--primary-glow);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,221,235,0.2);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .glass-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Profile Card */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .profile-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--primary-glow);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 0 40px rgba(0,221,235,0.5);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 40px rgba(0,221,235,0.5); }
+            50% { box-shadow: 0 0 60px rgba(0,221,235,0.8); }
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--secondary-glow);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(255,107,107,0.3);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .project-card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-item {
+            text-align: center;
+            padding: 25px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .contact-item {
+            padding: 30px;
+            background: rgba(0,221,235,0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(0,221,235,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(0,221,235,0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            
+            nav a {
+                padding: 12px 20px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-glow);
+            border-radius: 4px;
+        }
+    </style>
 </head>
 
 <body>
-
-<header>
-    <h1>My Portfolio</h1>
-    <p>Welcome to my personal website</p>
-</header>
-
-<nav>
-    <a data-section="about" class="active">About Me</a>
-    <a data-section="academic">Academic Profile</a>
-    <a data-section="projects">Projects</a>
-    <a data-section="contact">Contact</a>
-</nav>
-
-<!-- About Section -->
-<section id="about">
-    <h2>About Me</h2>
-
-    <div class="card">
-        <p><b>Name:</b> Avadhut Vishal More</p>
-        <p><b>Passion:</b> Web Development & Design</p>
-        <p><b>Skills:</b> HTML, CSS, JavaScript</p>
-        <p><b>Goal:</b> To build modern and interactive websites</p>
-    </div>
-
-    <div class="card">
-        <p>
-            I am a passionate web developer who enjoys creating clean,
-            modern, and user-friendly websites. I love learning new
-            technologies and improving my skills every day.
-        </p>
-    </div>
-</section>
-
-<!-- Academic Profile -->
-<section id="academic">
-    <h2>Academic Profile</h2>
-
-    <div class="card">
-        <h3>Education</h3>
-        <p><b>SSC:</b>75%</p>
-        <p><b>College:</b>Vidhyamandir Highschool & Jr.College Kole</p>
-        <p><b>Year:</b> 2023 - 2026</p>
-    </div>
-      <div class="card">
-        <p><b>Diploma 1st Sem:</b>75%</p>
-        <p><b>College:</b>Fabtech Technical Campus Sangola.</p>
-        <p><b>Year:</b> 2025 - 2026</p>
-    </div>
+    <div class="bg-animation"></div>
     
-    <div class="card">
-        <h3>Skills Learned</h3>
-        <ul>
-            <li>Web Development</li>
-            <li>Programming in JavaScript</li>
-            <li>Database Basics</li>
-            <li>Software Development</li>
-        </ul>
-    </div>
+    <!-- Animated Particles -->
+    <div class="particles" id="particles"></div>
 
-    <div class="card">
-        <h3>Achievements</h3>
-        <p>- Completed Web Development Projects</p>
-        <p>- Participated in Coding Competitions</p>
-    </div>
-</section>
+    <header>
+        <h1 class="hero-title">AVADHUT MORE</h1>
+        <p class="hero-subtitle">Full-Stack Developer | UI/UX Designer | Future Innovator</p>
+    </header>
 
-<!-- Projects -->
-<section id="projects">
-    <h2>Projects</h2>
+    <nav>
+        <a data-section="about" class="active">About</a>
+        <a data-section="academic">Academic</a>
+        <a data-section="projects">Projects</a>
+        <a data-section="contact">Contact</a>
+    </nav>
 
-    <div class="projects">
-        <div class="project-card">
-            <h3>Portfolio Website</h3>
-            <p>Personal website to showcase my profile.</p>
+    <!-- About Section -->
+    <section id="about">
+        <h2>01. About Me</h2>
+        <div class="profile-grid">
+            <div class="profile-avatar">👨‍💻</div>
+            <div>
+                <div class="glass-card">
+                    <h3>🚀 Passionate Developer</h3>
+                    <p>Avadhut Vishal More | Web Development Enthusiast crafting modern, interactive experiences with cutting-edge technologies.</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">⚡</div>
+                        <h4>HTML/CSS</h4>
+                        <p>Advanced</p>
+                    </div>
+                    <div class="skill-item">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">⚙️</div>
+                        <h4>JavaScript</h4>
+                        <p>Proficient</p>
+                    </div>
+                    <div class="skill-item">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🎨</div>
+                        <h4>UI/UX Design</h4>
+                        <p>Creative</p>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="project-card">
-            <h3>Weather App</h3>
-            <p>Displays real-time weather using API.</p>
+    <!-- Academic Section -->
+    <section id="academic">
+        <h2>02. Academic Journey</h2>
+        <div class="projects-grid">
+            <div class="glass-card">
+                <h3>🎓 Diploma in Computer Engineering</h3>
+                <p><strong>Fabtech Technical Campus, Sangola</strong><br>
+                1st Sem: 75% | 2025-2026<br>
+                Pursuing excellence in software development and modern technologies.</p>
+            </div>
+            <div class="glass-card">
+                <h3>🏫 Secondary Education</h3>
+                <p><strong>Vidhyamandir Highschool & Jr. College, Kole</strong><br>
+                SSC: 75% | 2023-2026<br>
+                Foundation for technical excellence.</p>
+            </div>
+            <div class="glass-card">
+                <h3>📚 Key Skills</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li>🌐 Web Development</li>
+                    <li>⚡ JavaScript Programming</li>
+                    <li>💾 Database Fundamentals</li>
+                    <li>🔧 Software Engineering</li>
+                </ul>
+            </div>
+            <div class="glass-card">
+                <h3>🏆 Achievements</h3>
+                <p>• Multiple Web Development Projects<br>
+                - Coding Competition Participant<br>
+                - Continuous Learning Enthusiast</p>
+            </div>
         </div>
+    </section>
 
-        <div class="project-card">
-            <h3>E-commerce Page</h3>
-            <p>Landing page with product showcase.</p>
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>03. Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Portfolio v2.0</h3>
+                <p>Futuristic portfolio with glassmorphism, animations, and modern web technologies.</p>
+                <div style="margin-top: 20px; color: var(--accent);">HTML • CSS • JavaScript • GSAP</div>
+            </div>
+            <div class="project-card">
+                <h3>Weather Dashboard</h3>
+                <p>Real-time weather app with API integration and interactive UI components.</p>
+                <div style="margin-top: 20px; color: var(--accent);">React • OpenWeather API • Charts</div>
+            </div>
+            <div class="project-card">
+                <h3>E-Commerce Landing</h3>
+                <p>Modern product showcase with smooth animations and responsive design.</p>
+                <div style="margin-top: 20px; color: var(--accent);">Tailwind • Framer Motion • PWA</div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Contact -->
-<section id="contact">
-    <h2>Contact</h2>
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>04. Let's Connect</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div style="font-size: 3rem; margin-bottom: 20px;">📧</div>
+                <h3>Email</h3>
+                <p>avadhutmore90@gmail.com</p>
+            </div>
+            <div class="contact-item">
+                <div style="font-size: 3rem; margin-bottom: 20px;">📱</div>
+                <h3>Phone</h3>
+                <p>+91 8010679552</p>
+            </div>
+            <div class="contact-item">
+                <div style="font-size: 3rem; margin-bottom: 20px;">📍</div>
+                <h3>Location</h3>
+                <p>Sangola, Maharashtra<br>India</p>
+            </div>
+        </div>
+    </section>
 
-    <div class="card">
-        <p>Email: avadhutmore90@gmail.com</p>
-        <p>Phone: +91 8010679552</p>
-    </div>
-</section>
+    <footer>
+        <p>&copy; 2026 Avadhut More | Built with 🚀 Future Tech</p>
+    </footer>
 
-<footer>
-    &copy; 2026 My Portfolio
-</footer>
+    <script>
+        // Navigation
+        const navLinks = document.querySelectorAll('nav a');
+        const sections = document.querySelectorAll('section');
 
-<script>
-    const navLinks = document.querySelectorAll('nav a');
-    const sections = document.querySelectorAll('section');
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-
-            sections.forEach(section => section.style.display = 'none');
-
-            const sectionToShow = document.getElementById(link.getAttribute('data-section'));
-            sectionToShow.style.display = 'block';
-        });
-    });
-        
-</script>
-
-</body>
-</html>
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetSection = link.getAttribute('data-section');
+                
