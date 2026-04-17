@@ -35,6 +35,96 @@
             position: relative;
         }
 
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10,10,15,0.95);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--primary-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-glow);
+            border-radius: 25px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+            transform: scale(0.95);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            opacity: 0.25;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,221,235,0.4);
+            border-color: rgba(0,221,235,0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
         /* Animated Background */
         .cosmic-bg {
             position: fixed;
@@ -87,9 +177,14 @@
             }
         }
 
+        /* Main Content with padding for navbar */
+        .main-content {
+            padding-top: 100px;
+        }
+
         /* Header */
         .header {
-            padding: 100px 0 60px;
+            padding: 120px 0 60px;
             text-align: center;
             position: relative;
             background: linear-gradient(180deg, rgba(10,10,15,0.95) 0%, transparent 100%);
@@ -153,7 +248,7 @@
         .timeline-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 20px 100px;
             position: relative;
         }
 
@@ -187,14 +282,22 @@
         .timeline-item {
             margin-bottom: 80px;
             position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .timeline-item.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .timeline-item:nth-child(odd) {
-            transform: translateX(-50px);
+            transform: translateX(-50px) translateY(50px);
         }
 
         .timeline-item:nth-child(even) {
-            transform: translateX(50px);
+            transform: translateX(50px) translateY(50px);
         }
 
         .timeline-content {
@@ -303,6 +406,7 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .skill-card::before {
@@ -338,6 +442,14 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
             .timeline::before {
                 left: 30px;
             }
@@ -349,7 +461,7 @@
             
             .timeline-item:nth-child(odd),
             .timeline-item:nth-child(even) {
-                transform: none;
+                transform: none !important;
             }
             
             .timeline-content::before {
@@ -379,164 +491,70 @@
 </head>
 
 <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="about.html" class="logo">AVADHUT</a>
+            <ul class="nav-links">
+                <li><a href="about.html" class="">Home</a></li>
+                <li><a href="academic.html" class="active">Academic</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
     <div class="cosmic-bg"></div>
     <div class="particles" id="particles"></div>
 
-    <header class="header">
-        <h1 class="section-title">ACADEMIC EXCELLENCE</h1>
-        <p class="section-subtitle">Charting the course of technical mastery and innovation</p>
-        
-        <div class="section-stats">
-            <div class="stat-item">
-                <span class="stat-number">75%</span>
-                <span style="color: var(--text-secondary);">Avg Grade</span>
+    <div class="main-content">
+        <header class="header">
+            <h1 class="section-title">ACADEMIC EXCELLENCE</h1>
+            <p class="section-subtitle">Charting the course of technical mastery and innovation</p>
+            
+            <div class="section-stats">
+                <div class="stat-item">
+                    <span class="stat-number">75</span>
+                    <span style="color: var(--text-secondary);">%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4</span>
+                    <span style="color: var(--text-secondary);">Years</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span style="color: var(--text-secondary);">Projects</span>
+                </div>
             </div>
-            <div class="stat-item">
-                <span class="stat-number">4</span>
-                <span style="color: var(--text-secondary);">Years</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">50+</span>
-                <span style="color: var(--text-secondary);">Projects</span>
-            </div>
-        </div>
-    </header>
+        </header>
 
-    <div class="timeline-container">
-        <div class="timeline">
-            <!-- Diploma -->
-            <div class="timeline-item">
-                <div class="timeline-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <div class="timeline-content">
-                    <span class="timeline-year">2025 - 2026</span>
-                    <h2 class="timeline-title">Diploma in Computer Engineering</h2>
-                    <span class="timeline-grade">1st Sem: 75%</span>
-                    <p class="timeline-desc">
-                        Fabtech Technical Campus, Sangola. Currently pursuing advanced studies 
-                        in computer engineering with focus on software development, web technologies, 
-                        and modern programming paradigms.
-                    </p>
-                </div>
-            </div>
-
-            <!-- SSC -->
-            <div class="timeline-item">
-                <div class="timeline-icon">
-                    <i class="fas fa-school"></i>
-                </div>
-                <div class="timeline-content">
-                    <span class="timeline-year">2023 - 2026</span>
-                    <h2 class="timeline-title">Secondary School Certificate (SSC)</h2>
-                    <span class="timeline-grade">75%</span>
-                    <p class="timeline-desc">
-                        Vidhyamandir Highschool & Jr. College, Kole. Strong foundation in 
-                        mathematics, science, and computer fundamentals that paved the way 
-                        for technical excellence.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Skills -->
-            <div class="timeline-item">
-                <div class="timeline-icon">
-                    <i class="fas fa-brain"></i>
-                </div>
-                <div class="timeline-content">
-                    <span class="timeline-year">Core Competencies</span>
-                    <h2 class="timeline-title">Technical Proficiencies</h2>
-                    <div class="skills-grid">
-                        <div class="skill-card">
-                            <span class="skill-icon">🌐</span>
-                            <h3>Web Development</h3>
-                            <p>HTML5, CSS3, JavaScript, React</p>
-                        </div>
-                        <div class="skill-card">
-                            <span class="skill-icon">⚙️</span>
-                            <h3>Programming</h3>
-                            <p>JavaScript, Python, C++</p>
-                        </div>
-                        <div class="skill-card">
-                            <span class="skill-icon">💾</span>
-                            <h3>Databases</h3>
-                            <p>MySQL, MongoDB Basics</p>
-                        </div>
-                        <div class="skill-card">
-                            <span class="skill-icon">🎨</span>
-                            <h3>UI/UX Design</h3>
-                            <p>Figma, Tailwind CSS</p>
-                        </div>
+        <div class="timeline-container">
+            <div class="timeline">
+                <!-- Diploma -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2025 - 2026</span>
+                        <h2 class="timeline-title">Diploma in Computer Engineering</h2>
+                        <span class="timeline-grade">1st Sem: 75%</span>
+                        <p class="timeline-desc">
+                            Fabtech Technical Campus, Sangola. Currently pursuing advanced studies 
+                            in computer engineering with focus on software development, web technologies, 
+                            and modern programming paradigms.
+                        </p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <script>
-        // Create animated particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Animate timeline items on scroll
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            
-            // Observe timeline items
-            document.querySelectorAll('.timeline-item').forEach((item, index) => {
-                item.style.opacity = '0';
-                item.style.transform = 'translateY(50px)';
-                item.style.transition = `all 0.8s ${index * 0.2}s cubic-bezier(0.175, 0.885, 0.32, 1.275)`;
-                observer.observe(item);
-            });
-
-            // Stats counter animation
-            const stats = document.querySelectorAll('.stat-number');
-            const animateStats = () => {
-                stats.forEach(stat => {
-                    const target = parseInt(stat.textContent);
-                    let count = 0;
-                    const increment = target / 100;
-                    const timer = setInterval(() => {
-                        count += increment;
-                        if (count >= target) {
-                            stat.textContent = target;
-                            clearInterval(timer);
-                        } else {
-                            stat.textContent = Math.floor(count);
-                        }
-                    }, 30);
-                });
-            };
-
-            // Trigger stats animation when header is visible
-            observer.observe(document.querySelector('.header'));
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelector
+                <!-- SSC -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2023 - 2026</span>
+                        <h2 class="timeline-title">Secondary School Certificate
