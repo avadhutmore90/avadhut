@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Profile | Futuristic Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-glow: linear-gradient(135deg, #00ddeb 0%, #0078d4 50%, #00d4ff 100%);
+            --secondary-glow: linear-gradient(135deg, #ff6b6b 0%, #ffa726 50%, #ffcc02 100%);
+            --neon-blue: #00ddeb;
+            --neon-purple: #8b5cf6;
+            --dark-bg: #0a0a0f;
+            --glass-bg: rgba(255,255,255,0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b3b8;
+            --border-glow: rgba(0,221,235,0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(120,119,198,0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255,119,198,0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(120,219,255,0.4) 0%, transparent 50%);
+            animation: cosmicShift 25s ease-in-out infinite;
+        }
+
+        @keyframes cosmicShift {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            33% { transform: scale(1.1) rotate(120deg); opacity: 0.8; }
+            66% { transform: scale(1.05) rotate(240deg); opacity: 0.9; }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--primary-glow);
+            border-radius: 50%;
+            animation: floatParticle 20s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% { 
+                transform: translateY(100vh) translateX(0) scale(0); 
+                opacity: 0; 
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(-100px) translateX(100px) scale(1); 
+                opacity: 0; 
+            }
+        }
+
+        /* Header */
+        .header {
+            padding: 100px 0 60px;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(180deg, rgba(10,10,15,0.95) 0%, transparent 100%);
+            backdrop-filter: blur(30px);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 900;
+            background: var(--primary-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            position: relative;
+            animation: neonGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonGlow {
+            from { 
+                text-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue), 0 0 60px var(--neon-blue);
+            }
+            to { 
+                text-shadow: 0 0 30px var(--neon-blue), 0 0 50px var(--neon-blue), 0 0 80px var(--neon-blue);
+            }
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto 10px;
+        }
+
+        .section-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--secondary-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        /* Timeline Container */
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        /* Main Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 2px;
+            box-shadow: 0 0 20px var(--neon-blue);
+            animation: timelinePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes timelinePulse {
+            0%, 100% { box-shadow: 0 0 20px var(--neon-blue); }
+            50% { box-shadow: 0 0 40px var(--neon-blue), 0 0 60px var(--neon-purple); }
+        }
+
+        /* Timeline Items */
+        .timeline-item {
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            transform: translateX(-50px);
+        }
+
+        .timeline-item:nth-child(even) {
+            transform: translateX(50px);
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-glow);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--neon-blue);
+            z-index: 2;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -40px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -40px;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 40px 80px rgba(0,221,235,0.4);
+            border-color: var(--neon-blue);
+        }
+
+        .timeline-icon {
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-glow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 0 30px var(--neon-blue);
+            z-index: 3;
+        }
+
+        .timeline-year {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--neon-blue);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .timeline-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .timeline-grade {
+            display: inline-block;
+            background: var(--secondary-glow);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+        }
+
+        .timeline-desc {
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 60px;
+        }
+
+        .skill-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glow);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-glow);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,221,235,0.3);
+        }
+
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: var(--primary-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+            }
+            
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                transform: none;
+            }
+            
+            .timeline-content::before {
+                left: -40px !important;
+                right: auto !important;
+            }
+            
+            .section-stats {
+                gap: 30px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-glow);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cosmic-bg"></div>
+    <div class="particles" id="particles"></div>
+
+    <header class="header">
+        <h1 class="section-title">ACADEMIC EXCELLENCE</h1>
+        <p class="section-subtitle">Charting the course of technical mastery and innovation</p>
+        
+        <div class="section-stats">
+            <div class="stat-item">
+                <span class="stat-number">75%</span>
+                <span style="color: var(--text-secondary);">Avg Grade</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">4</span>
+                <span style="color: var(--text-secondary);">Years</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">50+</span>
+                <span style="color: var(--text-secondary);">Projects</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="timeline-container">
+        <div class="timeline">
+            <!-- Diploma -->
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="timeline-content">
+                    <span class="timeline-year">2025 - 2026</span>
+                    <h2 class="timeline-title">Diploma in Computer Engineering</h2>
+                    <span class="timeline-grade">1st Sem: 75%</span>
+                    <p class="timeline-desc">
+                        Fabtech Technical Campus, Sangola. Currently pursuing advanced studies 
+                        in computer engineering with focus on software development, web technologies, 
+                        and modern programming paradigms.
+                    </p>
+                </div>
+            </div>
+
+            <!-- SSC -->
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <i class="fas fa-school"></i>
+                </div>
+                <div class="timeline-content">
+                    <span class="timeline-year">2023 - 2026</span>
+                    <h2 class="timeline-title">Secondary School Certificate (SSC)</h2>
+                    <span class="timeline-grade">75%</span>
+                    <p class="timeline-desc">
+                        Vidhyamandir Highschool & Jr. College, Kole. Strong foundation in 
+                        mathematics, science, and computer fundamentals that paved the way 
+                        for technical excellence.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="timeline-content">
+                    <span class="timeline-year">Core Competencies</span>
+                    <h2 class="timeline-title">Technical Proficiencies</h2>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <span class="skill-icon">🌐</span>
+                            <h3>Web Development</h3>
+                            <p>HTML5, CSS3, JavaScript, React</p>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-icon">⚙️</span>
+                            <h3>Programming</h3>
+                            <p>JavaScript, Python, C++</p>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-icon">💾</span>
+                            <h3>Databases</h3>
+                            <p>MySQL, MongoDB Basics</p>
+                        </div>
+                        <div class="skill-card">
+                            <span class="skill-icon">🎨</span>
+                            <h3>UI/UX Design</h3>
+                            <p>Figma, Tailwind CSS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create animated particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Animate timeline items on scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            // Observe timeline items
+            document.querySelectorAll('.timeline-item').forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(50px)';
+                item.style.transition = `all 0.8s ${index * 0.2}s cubic-bezier(0.175, 0.885, 0.32, 1.275)`;
+                observer.observe(item);
+            });
+
+            // Stats counter animation
+            const stats = document.querySelectorAll('.stat-number');
+            const animateStats = () => {
+                stats.forEach(stat => {
+                    const target = parseInt(stat.textContent);
+                    let count = 0;
+                    const increment = target / 100;
+                    const timer = setInterval(() => {
+                        count += increment;
+                        if (count >= target) {
+                            stat.textContent = target;
+                            clearInterval(timer);
+                        } else {
+                            stat.textContent = Math.floor(count);
+                        }
+                    }, 30);
+                });
+            };
+
+            // Trigger stats animation when header is visible
+            observer.observe(document.querySelector('.header'));
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelector
